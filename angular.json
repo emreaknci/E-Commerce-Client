@@ -28,9 +28,22 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss",
+              "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/alertifyjs/build/css/alertify.min.css",
+              "./node_modules/alertifyjs/build/css/themes/semantic.min.css",
+              "./node_modules/ngx-spinner/animations/ball-atom.css",
+              "./node_modules/ngx-spinner/animations/ball-triangle-path.css",
+              "./node_modules/ngx-spinner/animations/pacman.css",
+              "./node_modules/ngx-spinner/animations/square-jelly-box.css"
             ],
-            "scripts": []
+            "scripts": [    
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/alertifyjs/build/alertify.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -96,6 +109,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -103,5 +117,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "c0fd95bd-8638-49a5-9eb9-4bb26c4dde18"
   }
 }

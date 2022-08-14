@@ -1,0 +1,11 @@
+<app-header></app-header>
+
+<mat-drawer-container class="admin-container m-4">
+  <mat-drawer mode="side" class="admin-sidebar px-2" opened>
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content class="p-2">
+    <router-outlet> </router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+<app-footer></app-footer>

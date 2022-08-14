@@ -13,6 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     AdminModule,
     UiModule,
     MatToolbarModule,
@@ -35,7 +37,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     }),
     NgxSpinnerModule
   ],
-  providers: [],
+  providers: [
+    {provide:"baseUrl",useValue: "https://localhost:7213/api",multi:true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

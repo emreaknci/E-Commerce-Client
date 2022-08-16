@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
-import { Product } from 'src/app/contracts/product';
+import { ProductAdd } from 'src/app/contracts/productAdd';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -15,7 +15,7 @@ export class ProductsComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.showSpinner(SpinnerType.Pacman);
-    this.httpClientService.get<Product[]>({controller:"products"}).subscribe(data=>console.log(data[0]));
+    this.httpClientService.get<ProductAdd[]>({controller:"products"}).subscribe(data=>console.log(data[0]));
     // this.httpClientService.post({controller:"products"},{
     //   name:"kalem",
     //   unitsInStock:100,

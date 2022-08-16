@@ -1,0 +1,120 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+/* SBB PRIMARY COLOR START  */
+$primary: (
+  50: #E0ECF4,
+  100: #B3CEE3,
+  200: #80AED1,
+  300: #4D8EBF,
+  400: #2675B1,
+  500: #005DA3,
+  600: #00559B,
+  700: #004B91,
+  800: #004188,
+  900: #003077,
+  A100: #A5C1FF,
+  A200: #729FFF,
+  A400: #3F7CFF,
+  A700: #256AFF,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+/* SBB PRIMARY COLOR END  */
+
+/* SBB ACCENT COLOR START  */
+$accent: (
+  50: #E6F3E6,
+  100: #C2E0BF,
+  200: #99CC95,
+  300: #70B76B,
+  400: #51A74B,
+  500: #32982B,
+  600: #2D9026,
+  700: #268520,
+  800: #1F7B1A,
+  900: #136A10,
+  A100: #A1FF9F,
+  A200: #6FFF6C,
+  A400: #3EFF39,
+  A700: #25FF1F,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff
+  )
+);
+/* SBB ACCENT COLOR END  */
+
+/* SBB WARN COLOR START  */
+$warn: (
+  50: #faeaea,
+  100: #f2caca,
+  200: #e9a7a7,
+  300: #e08383,
+  400: #da6969,
+  500: #d34e4e,
+  600: #ce4747,
+  700: #c83d3d,
+  800: #c23535,
+  900: #b72525,
+  A100: #fff4f4,
+  A200: #ffc1c1,
+  A400: #ff8e8e,
+  A700: #ff7474,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+/* SBB WARN COLOR END  */
+$app-custom-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: mat.define-palette($primary),
+      accent: mat.define-palette($accent),
+      warn: mat.define-palette($warn)
+
+    )
+  )
+);
+
+@include mat.all-component-themes($app-custom-theme);
+

@@ -29,6 +29,11 @@ export class CreateComponent extends BaseComponent implements OnInit {
     this.productService.addProduct(model,()=>{
       this.hideSpinner(SpinnerType.SquareJellyBox);
       this.alertifyService.success("Ürün ekleme başarılı!");
-    })
+    },(responseError)=>{
+      this.hideSpinner(SpinnerType.SquareJellyBox);
+      responseError.forEach(error => {
+        this.alertifyService.error(error)
+      });
+    });
   }
 }

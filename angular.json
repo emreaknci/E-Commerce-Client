@@ -38,7 +38,9 @@
               "./node_modules/ngx-spinner/animations/ball-triangle-path.css",
               "./node_modules/ngx-spinner/animations/pacman.css",
               "./node_modules/ngx-spinner/animations/square-jelly-box.css",
-              "src/sbb-theme.scss"
+              "src/sbb-theme.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+              
             ],
             "scripts": [    
               "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",

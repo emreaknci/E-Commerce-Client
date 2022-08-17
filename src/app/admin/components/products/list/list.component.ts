@@ -5,6 +5,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { ProductList } from 'src/app/contracts/productList';
 import { ProductService } from 'src/app/services/common/models/product.service';
+
+// declare var $: any;
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -24,6 +26,8 @@ export class ListComponent extends BaseComponent implements OnInit {
     'price',
     'createdDate',
     'updatedDate',
+    'edit',
+    'delete',
   ];
   dataSource: MatTableDataSource<ProductList> = null;
 
@@ -39,17 +43,20 @@ export class ListComponent extends BaseComponent implements OnInit {
       await this.productService.getProductList(
         this.paginator ? this.paginator.pageIndex : 0,
         this.paginator ? this.paginator.pageSize : 5,
-        () => this.hideSpinner(SpinnerType.BallAtom)
+        () => this.hideSpinner(SpinnerType.Pacman)
       );
+  
     this.dataSource = new MatTableDataSource<ProductList>(products.list);
     this.paginator.length = products.totalCount;
-
-    console.log("fasda",this.dataSource);
-    console.log(products.totalCount);
-    // this.dataSource.paginator = this.paginator;
   }
 
   async pageChanged() {
     await this.getProducts();
   }
+
+  // delete(id: string, event: any) {
+  //   // console.log(event.srcElement.parentElement);
+  //   // this.ngOnInit();
+  //   $(event.srcElement.parentElement).fadeOut(750);
+  // }
 }

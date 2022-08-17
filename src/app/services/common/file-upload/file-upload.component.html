@@ -1,0 +1,41 @@
+<div class="center my-3">
+  <ngx-file-drop
+    dropZoneLabel="Drop files here"
+    (onFileDrop)="dropped($event)"
+    (onFileOver)="fileOver($event)"
+    (onFileLeave)="fileLeave($event)"
+    [accept]="options.accept"
+  >
+    <ng-template
+      ngx-file-drop-content-tmp
+      let-openFileSelector="openFileSelector"
+    >
+      <div class="mx-3">
+        {{options.explanation}}
+        <button
+          type="button"
+          class="btn btn-outline-success mx-3"
+          (click)="openFileSelector()"
+        >
+          Dosya Seç
+        </button>
+      </div>
+    </ng-template>
+  </ngx-file-drop>
+  <div class="upload-table" *ngIf="files.length>0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Dosya Adı</th>
+        </tr>
+      </thead>
+      <tbody class="upload-name-style">
+        <tr *ngFor="let item of files; let i = index">
+          <td>
+            <strong>{{i}}. => {{ item.relativePath }}</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { ProductAdd } from 'src/app/contracts/productAdd';
@@ -19,6 +19,8 @@ export class CreateComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @Output() createdProduct:EventEmitter<ProductAdd>=new EventEmitter();
+
   addProduct(name:HTMLInputElement,price:HTMLInputElement,unitsInStock:HTMLInputElement){
     this.showSpinner(SpinnerType.SquareJellyBox);
     let model:ProductAdd={
@@ -26,9 +28,11 @@ export class CreateComponent extends BaseComponent implements OnInit {
       price:parseFloat(price.value),
       unitInStock:parseInt(unitsInStock.value)
     }
+
     this.productService.addProduct(model,()=>{
       this.hideSpinner(SpinnerType.SquareJellyBox);
       this.alertifyService.success("Ürün ekleme başarılı!");
+      this.createdProduct.emit(model);
     },(responseError)=>{
       this.hideSpinner(SpinnerType.SquareJellyBox);
       responseError.forEach(error => {

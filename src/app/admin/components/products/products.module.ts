@@ -9,6 +9,8 @@ import { ListComponent } from './list/list.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [ProductsComponent, CreateComponent, ListComponent],
@@ -20,6 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
 })
 export class ProductsModule {}

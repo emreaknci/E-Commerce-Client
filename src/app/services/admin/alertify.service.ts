@@ -10,14 +10,21 @@ export class AlertifyService {
     this.delay();
   }
 
-  confirm(message:string){
-    alertify.confirm(message,
-  function(){
-    alertify.success('Ok');
-  },
-  function(){
-    alertify.error('Cancel');
-  });
+  confirm(
+    title: string,
+    message: string,
+    onOk?: () => any,
+    onCancel?: () => any
+  ) {
+    alertify.confirm(
+      title,message,
+      function () {
+        onOk();
+      },
+      function () {
+        onCancel();
+      }
+    );
   }
 
   success(message: string) {
@@ -36,19 +43,18 @@ export class AlertifyService {
     alertify.warning(message);
   }
 
-  dismissAll(){
+  dismissAll() {
     alertify.dismissAll();
   }
 
-  dismissOthers(){
+  dismissOthers() {
     alertify.dismissOthers();
   }
-  
-  private position(){
-    alertify.set('notifier','position', 'top-right');
-  }
-  private delay(){
-    alertify.set('notifier','delay', 3);
-  }
 
+  private position() {
+    alertify.set('notifier', 'position', 'top-right');
+  }
+  private delay() {
+    alertify.set('notifier', 'delay', 3);
+  }
 }

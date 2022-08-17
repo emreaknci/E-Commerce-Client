@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { ProductList } from 'src/app/contracts/productList';
+import { AlertifyService } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
 // declare var $: any;
@@ -15,7 +16,7 @@ import { ProductService } from 'src/app/services/common/models/product.service';
 export class ListComponent extends BaseComponent implements OnInit {
   constructor(
     spinnerService: NgxSpinnerService,
-    private productService: ProductService
+    private productService: ProductService,
   ) {
     super(spinnerService);
   }

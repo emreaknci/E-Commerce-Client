@@ -63,7 +63,6 @@ export class ProductService {
         },
         id
       );
-      console.log(deleteObservable)
     await firstValueFrom(deleteObservable);
   }
 }

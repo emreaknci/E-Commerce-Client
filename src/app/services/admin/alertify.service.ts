@@ -24,7 +24,7 @@ export class AlertifyService {
       function () {
         onCancel();
       }
-    );
+    ).set('resizable',true).resizeTo('20%',200);;
   }
 
   success(message: string) {

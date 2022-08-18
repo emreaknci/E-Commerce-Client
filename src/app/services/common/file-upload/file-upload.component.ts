@@ -27,68 +27,42 @@ export class FileUploadComponent {
         fileData.append(_file.name, _file, file.relativePath);
       });
     }
-    this.httpClientService
-      .post(
-        {
-          controller: this.options.controller,
-          action: this.options.action,
-          queryString: this.options.queryString,
-          headers: new HttpHeaders({ responseType: 'blob' }),
-        },
-        fileData
-      )
-      .subscribe(
-        (response) => {
-          const message:string="Dosyalar başarıyla yüklendi.";
-          if (this.options.isAdminPage) {
-            this.alertifyService.success(message)
-          }else{
-            this.toastrService.success(message)
-          }
-        },
-        (responseError) => {
-          const message:string="Dosya yükleme başarısız";
-          if (this.options.isAdminPage) {
-            this.alertifyService.error(message)
-          }else{
-            this.toastrService.error(message)
-          }
-        }
-      );
-
-    // for (const droppedFile of files) {
-
-    //   // Is it a file?
-    //   if (droppedFile.fileEntry.isFile) {
-    //     const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-    //     fileEntry.file((file: File) => {
-
-    //       // Here you can access the real file
-    //       console.log(droppedFile.relativePath, file);
-    //       console.log(droppedFile)
-    //       /**
-    //       // You could upload it like this:
-    //       const formData = new FormData()
-    //       formData.append('logo', file, relativePath)
-
-    //       // Headers
-    //       const headers = new HttpHeaders({
-    //         'security-token': 'mytoken'
-    //       })
-
-    //       this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
-    //       .subscribe(data => {
-    //         // Sanitized logo returned from backend
-    //       })
-    //       **/
-
-    //     });
-    //   } else {
-    //     // It was a directory (empty directories are added, otherwise only files)
-    //     const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-    //     console.log(droppedFile.relativePath, fileEntry);
-    //   }
-    // }
+    let errorMessage="Dosya yükleme işlemi gerçekleştirilemedi.";
+    this.alertifyService.confirm(
+      '','Dosyaları yüklemek istediğinize emin misiniz?',
+      () => {
+        this.httpClientService
+          .post(
+            {
+              controller: this.options.controller,
+              action: this.options.action,
+              queryString: this.options.queryString,
+              headers: new HttpHeaders({ responseType: 'blob' }),
+            },
+            fileData
+          )
+          .subscribe(
+            (response) => {
+              const message: string = 'Dosyalar başarıyla yüklendi.';
+              if (this.options.isAdminPage) {
+                this.alertifyService.success(message);
+              } else {
+                this.toastrService.success(message);
+              }
+            },
+            (responseError) => {
+              if (this.options.isAdminPage) {
+                this.alertifyService.error(errorMessage);
+              } else {
+                this.toastrService.error(errorMessage);
+              }
+            }
+          );
+      },
+      () => {
+        this.alertifyService.notify(errorMessage);
+      }
+    );
   }
 
   public fileOver(event: any) {

@@ -10,6 +10,7 @@ import { FileUploadOptions } from '../../services/common/file-upload/file-upload
 import { ProductService } from '../../services/common/models/product.service';
 import { BaseDialog } from '../base/base-dialog';
 import { DeleteDialogComponent, DeleteState } from '../delete-dialog/delete-dialog.component';
+import { AlertifyService } from 'src/app/services/admin/alertify.service';
 
 declare var $: any
 
@@ -24,7 +25,8 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
     @Inject(MAT_DIALOG_DATA) public data: SelectProductImageState | string,
     private productService: ProductService,
     private spinnerService: NgxSpinnerService,
-    private dialogService: DialogService) {
+    private dialogService: DialogService,
+    private alertifyService:AlertifyService) {
     super(dialogRef)
   }
 
@@ -38,30 +40,35 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
   };
 
   images: ProductImage[];
-
+  
   async ngOnInit() {
     this.spinnerService.show(SpinnerType.BallAtom);
-    this.spinnerService.hide(SpinnerType.BallAtom,750)
   
-
-    //this.images = await this.productService.readImages(this.data as string, () => this.spinner.hide(SpinnerType.BallAtom));
+   
+    this.images = await this.productService.readImages(this.data as string,()=>{
+      this.spinnerService.hide(SpinnerType.BallAtom,500)
+    });
   }
 
   async deleteImage(imageId: string, event: any) {
 
-    // this.dialogService.openDialog({
-    //   componentType: DeleteDialogComponent,
-    //   data: DeleteState.Yes,
-    //   afterClosed: async () => {
-    //     this.spinner.show(SpinnerType.BallAtom)
-    //     await this.productService.deleteImage(this.data as string, imageId, () => {
-    //       this.spinner.hide(SpinnerType.BallAtom);
-    //       var card = $(event.srcElement).parent().parent();
-    //       debugger;
-    //       card.fadeOut(500);
-    //     });
-    //   }
-    // })
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteState.Yes,
+      afterClosed: async () => {
+        this.spinnerService.show(SpinnerType.BallAtom);
+        // console.log($(event.srcElement).parent().parent().parent());
+        await this.productService.deleteImage(this.data as string, imageId, () => {
+          this.spinnerService.hide(SpinnerType.BallAtom);
+
+          var card = $(event.srcElement).parent().parent().parent();
+          card.fadeOut(500);
+          this.alertifyService.success("Resim silme başarılı!");
+        },()=>{
+          this.alertifyService.error("Resim silme başarısız!");
+        });
+      }
+    })
   }
 }
 

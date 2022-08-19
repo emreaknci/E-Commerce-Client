@@ -10,11 +10,9 @@ import { SelectProductImageDialogComponent } from './select-product-image-dialog
 
 @NgModule({
   declarations: [
-
-  
     DeleteDialogComponent,
-        FileUploadDialogComponent,
-        SelectProductImageDialogComponent
+    FileUploadDialogComponent,
+    SelectProductImageDialogComponent
   ],
   imports: [
     CommonModule,

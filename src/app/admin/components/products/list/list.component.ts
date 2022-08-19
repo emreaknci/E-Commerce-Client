@@ -4,7 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { ProductList } from 'src/app/contracts/productList';
+import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { AlertifyService } from 'src/app/services/admin/alertify.service';
+import { DialogService } from 'src/app/services/common/dialog.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
 // declare var $: any;
@@ -17,8 +19,13 @@ export class ListComponent extends BaseComponent implements OnInit {
   constructor(
     spinnerService: NgxSpinnerService,
     private productService: ProductService,
+    private alertifyService:AlertifyService,
+    private dialogService:DialogService
   ) {
     super(spinnerService);
+    // alertifyService.dialog("başlık","mesaj",()=>{
+    //   console.log("dafsdsadasdssa");
+    // })
   }
 
   displayedColumns: string[] = [
@@ -27,6 +34,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     'price',
     'createdDate',
     'updatedDate',
+    'images',
     'edit',
     'delete',
   ];
@@ -46,7 +54,7 @@ export class ListComponent extends BaseComponent implements OnInit {
         this.paginator ? this.paginator.pageSize : 5,
         () => this.hideSpinner(SpinnerType.Pacman)
       );
-  
+
     this.dataSource = new MatTableDataSource<ProductList>(products.list);
     console.table(products.list);
     this.paginator.length = products.totalCount;
@@ -56,9 +64,11 @@ export class ListComponent extends BaseComponent implements OnInit {
     await this.getProducts();
   }
 
-  // delete(id: string, event: any) {
-  //   // console.log(event.srcElement.parentElement);
-  //   // this.ngOnInit();
-  //   $(event.srcElement.parentElement).fadeOut(750);
-  // }
+  addDPoductImages(id:string){
+    this.dialogService.openDialog({
+      componentType:SelectProductImageDialogComponent,
+      data:id,
+      options:{width:"50%"}
+    })
+  }
 }

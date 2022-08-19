@@ -10,6 +10,14 @@ export class AlertifyService {
     this.delay();
   }
 
+  dialog(title:string,message:string,func:()=>any){
+    alertify.alert(
+      title,message,function(){
+        func();
+      }
+    )
+  }
+
   confirm(
     title: string,
     message: string,

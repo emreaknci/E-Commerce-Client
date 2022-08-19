@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogModule } from './dialogs/dialog.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
       progressBar: true,
       timeOut: 4000,
     }),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    DialogModule
   ],
   providers: [
     {provide:"baseUrl",useValue: "https://localhost:7213/api",multi:true}

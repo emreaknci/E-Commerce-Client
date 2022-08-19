@@ -25,16 +25,32 @@
       <td mat-cell *matCellDef="let element">{{ element.updatedDate }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="images">
+      <th mat-header-cell *matHeaderCellDef>Images</th>
+      <td mat-cell *matCellDef="let element" >
+        <i style="cursor: pointer" (click)="addDPoductImages(element.id)" class="bi bi-images"> Add </i>
+        {{ element.images }}
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef>Edit</th>
       <td mat-cell *matCellDef="let element">
-        <i class="bi bi-pen"></i> Edit{{ element.edit }}
+        <i style="cursor: pointer" class="bi bi-pen"> Edit </i>
+        {{ element.edit }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef>Delete</th>
-      <td [id]="element.id" controller="products" mat-cell *matCellDef="let element" appDelete (callback)="getProducts()">
+      <td
+        [id]="element.id"
+        controller="products"
+        mat-cell
+        *matCellDef="let element"
+        appDelete
+        (callback)="getProducts()"
+      >
         {{ element.delete }}
       </td>
     </ng-container>
@@ -51,3 +67,5 @@
   >
   </mat-paginator>
 </div>
+
+

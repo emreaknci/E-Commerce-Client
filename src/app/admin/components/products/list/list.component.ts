@@ -48,6 +48,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       );
   
     this.dataSource = new MatTableDataSource<ProductList>(products.list);
+    console.table(products.list);
     this.paginator.length = products.totalCount;
   }
 

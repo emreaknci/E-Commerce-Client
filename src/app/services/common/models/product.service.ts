@@ -40,10 +40,10 @@ export class ProductService {
     size: number = 5,
     successCallBack?: any,
     errorCallBack?: (errorMessage: string) => void
-  ): Promise<{ totalCount: number; list: ProductList[] }> {
-    const promiseData: Promise<{ totalCount: number; list: ProductList[] }> =
+  ): Promise<{ totalCount: number; products: ProductList[] }> {
+    const promiseData: Promise<{ totalCount: number; products: ProductList[] }> =
       this.httpClientService
-        .get<{ totalCount: number; list: ProductList[] }>({
+        .get<{ totalCount: number; products: ProductList[] }>({
           controller: 'products',
           queryString: `page=${page}&size=${size}`,
         })

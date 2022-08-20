@@ -21,13 +21,13 @@
         class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
         style="--bs-scroll-height: 100px"
       >
-        <li class="nav-item">
+        <li class="nav-item m-2">
           <a class="nav-link active" aria-current="page" routerLink="">Home</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item m-2">
           <a class="nav-link" routerLink="products">Products</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item m-2 dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -45,7 +45,7 @@
             <li><a class="dropdown-item" routerLink="basket">Basket</a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item m-2">
           <a
             class="nav-link"
             href="#"
@@ -56,7 +56,7 @@
           >
         </li>
       </ul>
-      <form class="d-flex">
+      <form class="d-flex m-2">
         <input
           class="form-control me-2"
           type="search"
@@ -65,12 +65,20 @@
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+      <button class="btn btn-outline-success m-2 d-block" type="submit" routerLink="register">
+        Kayıt Ol
+      </button>
+
+      <button class="btn btn-outline-success m-2 d-block" type="submit">
+        Giriş Yap
+      </button>
     </div>
   </div>
 </nav>
 <div class="container my-3">
   <router-outlet></router-outlet>
 </div>
+
 <ngx-spinner
   name="s1"
   bdColor="rgba(51,51,51,0.9)"

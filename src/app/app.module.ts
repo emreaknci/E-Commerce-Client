@@ -35,6 +35,7 @@ import { DialogModule } from './dialogs/dialog.module';
       closeButton: true,
       progressBar: true,
       timeOut: 4000,
+      autoDismiss:true
     }),
     NgxSpinnerModule,
     DialogModule

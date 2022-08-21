@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogModule } from './dialogs/dialog.module';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +39,13 @@ import { DialogModule } from './dialogs/dialog.module';
       autoDismiss:true
     }),
     NgxSpinnerModule,
-    DialogModule
+    DialogModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: ()=>localStorage.getItem("accessToken"),
+        allowedDomains:["localhost:7213"]
+      },
+    }),
   ],
   providers: [
     {provide:"baseUrl",useValue: "https://localhost:7213/api",multi:true}

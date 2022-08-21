@@ -64,6 +64,7 @@
               >Lütfen 6 ile 50 karakter arasında yazınız.</small
             >
           </div>
+
           <div class="form-floating mb-3">
             <input
               [ngClass]="{
@@ -112,7 +113,7 @@
             <label for="floatingPassword">Şifre</label>
             <small
               class="form-text text-muted invalid-feedback"
-              *ngIf="submitted && component.email.errors?.required"
+              *ngIf="submitted && component.password.errors?.required"
               >Bu alanı boş geçemezsiniz.</small
             >
           </div>
@@ -131,7 +132,7 @@
             <label for="floatingPassword">Şifre Tekrar</label>
             <small
               class="form-text text-muted invalid-feedback"
-              *ngIf="submitted && component.email.errors?.required"
+              *ngIf="submitted && component.confirmPassword.errors?.required"
               >Bu alanı boş geçemezsiniz.</small
             >
             <small *ngIf="submitted && registerFormGroup.hasError('notSame')">Şifreler uyuşmuyor</small>

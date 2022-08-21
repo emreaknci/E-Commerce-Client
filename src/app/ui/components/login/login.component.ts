@@ -1,4 +1,8 @@
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import {
+  FacebookLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -34,10 +38,20 @@ export class LoginComponent extends BaseComponent implements OnInit {
     socialAuthService.authState.subscribe(async (user: SocialUser) => {
       console.log(user);
       this.showSpinner(SpinnerType.BallAtom);
-      await userService.googleLogin(user, () => {
-        authService.identityCheck();
-        this.hideSpinner(SpinnerType.BallAtom);
-      });
+      switch (user.provider) {
+        case 'GOOGLE':
+          await userService.googleLogin(user, () => {
+            authService.identityCheck();
+            this.hideSpinner(SpinnerType.BallAtom);
+          });
+          break;
+        case 'FACEBOOK':
+          await userService.facebookLogin(user, () => {
+            authService.identityCheck();
+            this.hideSpinner(SpinnerType.BallAtom);
+          });
+          break;
+      }
     });
   }
 
@@ -75,5 +89,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
         'Kayıt Başarısız!'
       );
     }
+  }
+  facebookLogin() {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 }

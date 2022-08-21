@@ -48,9 +48,14 @@
               >
             </div>
           
-            <button class="w-100 btn btn-lg btn-primary">Giriş Yap</button>
-            <asl-google-signin-button></asl-google-signin-button>
-            <!-- <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p> -->
+            <button class="w-100 btn btn-lg btn-primary mb-3">Giriş Yap</button>
+          <div class="offset-lg-4 offset-sm-5">
+            <asl-google-signin-button class="btn border-0"></asl-google-signin-button>
+            <a class="btn  btn-primary" style="width:2rem ; height: 2rem;" (click)="facebookLogin()">
+              <i class="bi bi-facebook"></i>
+             </a>
+          </div>            
+          <!-- <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p> -->
           </form>
         </div>
       </div>

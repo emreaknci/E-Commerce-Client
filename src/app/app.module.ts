@@ -16,7 +16,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogModule } from './dialogs/dialog.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './ui/components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -61,6 +61,10 @@ import { ReactiveFormsModule } from '@angular/forms';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider("45099115670-3mdndhepeq1eqv0ts89jvq2sgk7ier1g.apps.googleusercontent.com")
+          },
+          {
+            id:FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider("2025229251020676")
           }
         ],
         onError: err => console.log(err)

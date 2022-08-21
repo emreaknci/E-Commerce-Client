@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { SpinnerType } from 'src/app/base/base.component';
+import { AuthService, _isAuthenticated } from 'src/app/services/common/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,18 +21,20 @@ export class AuthGuard implements CanActivate {
     private jwtHelper: JwtHelperService,
     private router: Router,
     private toastrService: ToastrService,
-    private spinnerService:NgxSpinnerService
+    private spinnerService:NgxSpinnerService,
+    private authService:AuthService
   ) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     this.spinnerService.show(SpinnerType.Pacman);
-    const token: string = localStorage.getItem('accessToken');
-    let isExpired: boolean = null;
-    try {
-      isExpired = this.jwtHelper.isTokenExpired(token);
-    } catch (error) {
-      isExpired = true;
-    }
-    if (!token || isExpired) {
+    // const token: string = localStorage.getItem('accessToken');
+    // let isExpired: boolean = null;
+    // try {
+    //   isExpired = this.jwtHelper.isTokenExpired(token);
+    // } catch (error) {
+    //   isExpired = true;
+    // }
+
+    if (!_isAuthenticated) {
       this.toastrService.warning(
         'Önce oturum açmalısınız',
         'Yetkisiz Giriş Hatası!'

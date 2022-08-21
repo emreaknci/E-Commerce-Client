@@ -42,11 +42,12 @@ export class UserService {
       user
     );
     const response = (await firstValueFrom(observable)) as TokenResponse;
-    console.log("das",response)
-    if (response) {
-      localStorage.setItem("accessToken",response.token.accessToken);
-      
+    if (response.success) {
       this.toastrService.success(response.message);
+      localStorage.setItem("accessToken",response.token.accessToken);
+    }
+    else{
+      this.toastrService.error(response.message);
     }
     callBackFunction();
   }

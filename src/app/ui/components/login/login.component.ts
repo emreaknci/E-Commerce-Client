@@ -46,16 +46,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     if (this.loginFormGroup.valid) {
       this.showSpinner(SpinnerType.BallTrianglePath)
-      const result=await this.userService.login(user,()=>{
+      await this.userService.login(user,()=>{
         this.hideSpinner(SpinnerType.BallTrianglePath)
       })
-      if(result.success){
-        this.toastrService.success(result.message)
-      }
-      else{
-        this.toastrService.error(result.message)
-      }
-      console.log(user);
     } else {
       this.toastrService.error(
         'Hatalı veya eksik veri girişi yaptınız.',

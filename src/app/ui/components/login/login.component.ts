@@ -1,16 +1,16 @@
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   FormGroup,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { User } from 'src/app/entities/user';
+import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
 import { AuthService } from 'src/app/services/common/auth.service';
 import { UserService } from 'src/app/services/common/models/user.service';
 
@@ -24,12 +24,21 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
     private userService: UserService,
-    private authService:AuthService,
-    private activatedRoute:ActivatedRoute,
-    private router:Router,
-    spinnerService:NgxSpinnerService
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private socialAuthService: SocialAuthService,
+    spinnerService: NgxSpinnerService
   ) {
     super(spinnerService);
+    socialAuthService.authState.subscribe(async (user: SocialUser) => {
+      console.log(user);
+      this.showSpinner(SpinnerType.BallAtom);
+      await userService.googleLogin(user, () => {
+        authService.identityCheck();
+        this.hideSpinner(SpinnerType.BallAtom);
+      });
+    });
   }
 
   ngOnInit(): void {
@@ -46,22 +55,20 @@ export class LoginComponent extends BaseComponent implements OnInit {
   get component() {
     return this.loginFormGroup.controls;
   }
-  async onSubmit(user: {userNameOrEmail:string,password:string}) {
+  async onSubmit(user: { userNameOrEmail: string; password: string }) {
     this.submitted = true;
 
     if (this.loginFormGroup.valid) {
-      this.showSpinner(SpinnerType.BallTrianglePath)
-      await this.userService.login(user,()=>{
+      this.showSpinner(SpinnerType.BallTrianglePath);
+      await this.userService.login(user, () => {
         this.authService.identityCheck();
-        this.activatedRoute.queryParams.subscribe(params=>{
-          const returnUrl:string=params["returnUrl"];
-          if(returnUrl)
-           this.router.navigate([returnUrl]);
-        })
+        this.activatedRoute.queryParams.subscribe((params) => {
+          const returnUrl: string = params['returnUrl'];
+          if (returnUrl) this.router.navigate([returnUrl]);
+        });
 
-
-        this.hideSpinner(SpinnerType.BallTrianglePath)
-      })
+        this.hideSpinner(SpinnerType.BallTrianglePath);
+      });
     } else {
       this.toastrService.error(
         'Hatalı veya eksik veri girişi yaptınız.',

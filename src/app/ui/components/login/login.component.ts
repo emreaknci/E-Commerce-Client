@@ -4,19 +4,13 @@ import {
   SocialUser,
 } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
 import { AuthService } from 'src/app/services/common/auth.service';
-import { UserService } from 'src/app/services/common/models/user.service';
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -27,8 +21,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
-    private userService: UserService,
     private authService: AuthService,
+    private userAuthService: UserAuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private socialAuthService: SocialAuthService,
@@ -40,13 +34,13 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.showSpinner(SpinnerType.BallAtom);
       switch (user.provider) {
         case 'GOOGLE':
-          await userService.googleLogin(user, () => {
+          await userAuthService.googleLogin(user, () => {
             authService.identityCheck();
             this.hideSpinner(SpinnerType.BallAtom);
           });
           break;
         case 'FACEBOOK':
-          await userService.facebookLogin(user, () => {
+          await userAuthService.facebookLogin(user, () => {
             authService.identityCheck();
             this.hideSpinner(SpinnerType.BallAtom);
           });
@@ -74,7 +68,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     if (this.loginFormGroup.valid) {
       this.showSpinner(SpinnerType.BallTrianglePath);
-      await this.userService.login(user, () => {
+      await this.userAuthService.login(user, () => {
         this.authService.identityCheck();
         this.activatedRoute.queryParams.subscribe((params) => {
           const returnUrl: string = params['returnUrl'];

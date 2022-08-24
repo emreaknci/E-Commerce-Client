@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { firstValueFrom, Observable } from 'rxjs';
 import { CreateUser } from 'src/app/contracts/users/createUser';
-import { LoginUser } from 'src/app/contracts/users/loginUser';
 import { User } from 'src/app/entities/user';
 import { HttpClientService } from '../http-client.service';
-import { Token } from 'src/app/contracts/token/token';
-import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
-import { SocialUser } from '@abacritt/angularx-social-login';
+
 
 @Injectable({
   providedIn: 'root',
@@ -29,68 +26,5 @@ export class UserService {
     return (await firstValueFrom(observable)) as CreateUser;
   }
 
-  async login(
-    user: { userNameOrEmail: string; password: string },
-    callBackFunction?: () => void
-  ): Promise<any> {
-    const observable: Observable<any | TokenResponse> =
-      this.httpClientService.post<any | TokenResponse>(
-        {
-          controller: 'users',
-          action: 'login',
-        },
-        user
-      );
-    const response = (await firstValueFrom(observable)) as TokenResponse;
-    if (response.success) {
-      this.toastrService.success(response.message);
-      localStorage.setItem('accessToken', response.token.accessToken);
-    } else {
-      this.toastrService.error(response.message);
-    }
-    callBackFunction();
-  }
-  async googleLogin(
-    user: SocialUser,
-    callBackFunction?: () => void
-  ): Promise<any> {
-    const observable: Observable<SocialUser | TokenResponse> =
-      this.httpClientService.post<SocialUser | TokenResponse>(
-        {
-          action: 'google-login',
-          controller: 'users',
-        },
-        user
-      );
 
-    const response = (await firstValueFrom(observable)) as TokenResponse;
-    if (response.token) {
-      localStorage.setItem('accessToken', response.token.accessToken);
-      this.toastrService.success(response.message);
-    }
-    callBackFunction();
-  }
-
-  async facebookLogin( user: SocialUser,
-    callBackFunction?: () => void
-  ): Promise<any>{
-    const observable: Observable<SocialUser | TokenResponse> =
-    this.httpClientService.post<SocialUser | TokenResponse>(
-      {
-        action: 'facebook-login',
-        controller: 'users',
-      },
-      user
-    );
-
-    const response = (await firstValueFrom(observable)) as TokenResponse;
-    if (response.token) {
-      localStorage.setItem('accessToken', response.token.accessToken);
-      this.toastrService.success(response.message);
-    }
-    else{
-      this.toastrService.error(response.message)
-    }
-    callBackFunction();
-  }
 }

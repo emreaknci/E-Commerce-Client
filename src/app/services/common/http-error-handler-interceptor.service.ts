@@ -8,12 +8,15 @@ import {
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, Observable, of } from 'rxjs';
+import { UserAuthService } from './models/user-auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
-  constructor(private toastrService: ToastrService) {}
+  constructor(private toastrService: ToastrService,    
+    private userAuthService:UserAuthService
+    ) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -27,6 +30,9 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
           case HttpStatusCode.Unauthorized:
             message = 'Bu işlemi yapmak için gerekli yetkiye sahip değilsiniz.';
             title = 'Yetkisiz İşlem!';
+            this.userAuthService.refreshTokenLogin(localStorage.getItem("refreshToken")).then(data=>{
+              
+            });
             break;
           case HttpStatusCode.InternalServerError:
             message = 'Sunucuya erişilemiyor';

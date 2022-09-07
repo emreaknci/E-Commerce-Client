@@ -40,10 +40,10 @@ export class ProductService {
     size: number = 5,
     successCallBack?: any,
     errorCallBack?: (errorMessage: string) => void
-  ): Promise<{ totalCount: number; products: ProductList[] }> {
-    const promiseData: Promise<{ totalCount: number; products: ProductList[] }> =
+  ): Promise<{ totalProductCount: number; products: ProductList[] }> {
+    const promiseData: Promise<{ totalProductCount: number; products: ProductList[] }> =
       this.httpClientService
-        .get<{ totalCount: number; products: ProductList[] }>({
+        .get<{ totalProductCount: number; products: ProductList[] }>({
           controller: 'products',
           queryString: `page=${page}&size=${size}`,
         })
@@ -111,5 +111,14 @@ export class ProductService {
         console.log(responseError);
       }
     );
+  }
+  async changeShowcaseImage(imageId: string, productId: string, successCallBack?: () => void): Promise<void> {
+    const changeShowcaseImageObservable = this.httpClientService.get({
+      controller: "products",
+      action: "ChangeShowcaseImage",
+      queryString: `imageId=${imageId}&productId=${productId}`
+    });
+    await firstValueFrom(changeShowcaseImageObservable);
+    successCallBack();
   }
 }

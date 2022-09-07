@@ -48,7 +48,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   async getProducts() {
     this.showSpinner(SpinnerType.BallTrianglePath);
 
-    const responseData: { totalCount: number; products: ProductList[] } =
+    const responseData: { totalProductCount: number; products: ProductList[] } =
       await this.productService.getProductList(
         this.paginator ? this.paginator.pageIndex : 0,
         this.paginator ? this.paginator.pageSize : 5,
@@ -57,14 +57,14 @@ export class ListComponent extends BaseComponent implements OnInit {
 
     this.dataSource = new MatTableDataSource<ProductList>(responseData.products);
     // console.table(responseData.products);
-    this.paginator.length = responseData.totalCount;
+    this.paginator.length = responseData.totalProductCount;
   }
 
   async pageChanged() {
     await this.getProducts();
   }
 
-  addDPoductImages(id:string){
+  addProductImages(id:string){
     this.dialogService.openDialog({
       componentType:SelectProductImageDialogComponent,
       data:id,

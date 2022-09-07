@@ -1,3 +1,5 @@
+import { ProductImage } from "./productImage";
+
 export interface ProductList {
     id:string;
     name:string;
@@ -5,4 +7,6 @@ export interface ProductList {
     price:number;
     createdDate:Date;
     updatedDate:Date;
+    images?:ProductImage[]
+    imagePath: string;
 }

@@ -27,6 +27,7 @@
         <li class="nav-item m-2">
           <a class="nav-link" routerLink="products">Products</a>
         </li>
+        <app-baskets></app-baskets>
         <li class="nav-item m-2 dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -68,7 +69,6 @@
       <button *ngIf="!authService.isAuthenticated" class="btn btn-outline-success m-2 d-block"routerLink="register">
         Kayıt Ol
       </button>
-
       <button *ngIf="!authService.isAuthenticated" class="btn btn-outline-success m-2 d-block" routerLink="login">
         Giriş Yap
       </button>
@@ -118,3 +118,4 @@
   [fullScreen]="true"
 >
 </ngx-spinner>
+

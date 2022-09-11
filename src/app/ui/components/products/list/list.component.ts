@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { async } from 'rxjs';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { BaseUrl } from 'src/app/contracts/baseUrl';
+import { Create_Basket_Item } from 'src/app/contracts/baskets/createBasketItem';
 import { ProductList } from 'src/app/contracts/productList';
+import { BasketService } from 'src/app/services/common/models/basket.service';
 import { FileService } from 'src/app/services/common/models/file.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
@@ -11,12 +16,15 @@ import { ProductService } from 'src/app/services/common/models/product.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends BaseComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
-    private fileService:FileService
-  ) {}
+    private fileService:FileService,
+    spinnerService: NgxSpinnerService,
+    private toastrService:ToastrService,
+    private basketService:BasketService
+  ) {super(spinnerService)}
 
   products: ProductList[];
   currentPageNo: number;
@@ -69,5 +77,14 @@ export class ListComponent implements OnInit {
         for (let i = this.currentPageNo - 3; i <= this.currentPageNo + 3; i++)
           this.pageList.push(i);
     });
+  }
+  async addToBasket(product: ProductList) {
+    this.showSpinner(SpinnerType.BallAtom);
+    let _basketItem: Create_Basket_Item = new Create_Basket_Item();
+    _basketItem.productId = product.id;
+    _basketItem.quantity = 1;
+    await this.basketService.add(_basketItem);
+    this.hideSpinner(SpinnerType.BallAtom);
+    this.toastrService.success("Ürün sepete eklenmiştir.", "Sepete Eklendi");
   }
 }

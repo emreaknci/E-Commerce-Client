@@ -9,6 +9,7 @@ import { ComponentsModule } from './components/components.module';
   imports: [
     CommonModule,
     ComponentsModule
-  ]
+  ],
+  exports:[ComponentsModule]
 })
 export class UiModule { }

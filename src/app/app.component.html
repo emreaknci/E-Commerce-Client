@@ -27,7 +27,18 @@
         <li class="nav-item m-2">
           <a class="nav-link" routerLink="products">Products</a>
         </li>
-        <app-baskets></app-baskets>
+        <li class="nav-item m-2">
+          <a
+            class="nav-link"
+            tabindex="-1"
+            aria-disabled="true"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            (click)="loadComponent()"
+            >Sepet</a
+          >
+        </li>
+
         <li class="nav-item m-2 dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -66,13 +77,26 @@
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form> -->
-      <button *ngIf="!authService.isAuthenticated" class="btn btn-outline-success m-2 d-block"routerLink="register">
+      <button
+        *ngIf="!authService.isAuthenticated"
+        class="btn btn-outline-success m-2 d-block"
+        routerLink="register"
+      >
         Kayıt Ol
       </button>
-      <button *ngIf="!authService.isAuthenticated" class="btn btn-outline-success m-2 d-block" routerLink="login">
+      <button
+        *ngIf="!authService.isAuthenticated"
+        class="btn btn-outline-success m-2 d-block"
+        routerLink="login"
+      >
         Giriş Yap
       </button>
-      <button *ngIf="authService.isAuthenticated" class="btn btn-outline-danger m-2 d-block" (click)="signOut()"  routerLink="">
+      <button
+        *ngIf="authService.isAuthenticated"
+        class="btn btn-outline-danger m-2 d-block"
+        (click)="signOut()"
+        routerLink=""
+      >
         Çıkış Yap
       </button>
     </div>
@@ -119,3 +143,9 @@
 >
 </ngx-spinner>
 
+<!-- <app-baskets></app-baskets> -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <ng-template appDynamicLoadComponent></ng-template>
+  </div>
+</div>

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 import { AuthService } from './services/common/auth.service';
+import { ComponentType, DynamicLoadComponentService } from './services/common/dynamic-load-component.service';
 import { HttpClientService } from './services/common/http-client.service';
 
 @Component({
@@ -10,11 +12,14 @@ import { HttpClientService } from './services/common/http-client.service';
 })
 export class AppComponent {
   title = 'ECommerceClient';
-
+  
+  @ViewChild(DynamicLoadComponentDirective, { static: true })
+  dynamicLoadComponentDirective: DynamicLoadComponentDirective;
   constructor(
     public authService: AuthService,
     private toastrService: ToastrService,
-    private httpClientService: HttpClientService
+    private httpClientService: HttpClientService,
+    private dynamicLoadComponentService:DynamicLoadComponentService
   ) {
     // httpClientService
     //   .post({ controller: 'baskets' },{productId:"e510726f-f078-4384-9abf-a3834cce50c9",quantity:50})
@@ -34,5 +39,8 @@ export class AppComponent {
     this.toastrService.info('Oturumunuz sonlandırıldı.', '', {
       positionClass: 'toast-bottom-right',
     });
+  }
+  loadComponent() {
+    this.dynamicLoadComponentService.loadComponent(ComponentType.BasketsComponent, this.dynamicLoadComponentDirective.viewContainerRef);
   }
 }

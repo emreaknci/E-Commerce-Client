@@ -17,11 +17,9 @@ export class BasketsComponent extends BaseComponent implements OnInit {
   }
 
   basketItems: List_Basket_Item[];
-  totalprice:number=0;
   async ngOnInit(): Promise<void> {
     this.showSpinner(SpinnerType.BallAtom)
     this.basketItems = await this.basketService.get()
-    this.totalPrice();
     this.hideSpinner(SpinnerType.BallAtom)
   }
 
@@ -37,16 +35,12 @@ export class BasketsComponent extends BaseComponent implements OnInit {
   }
 
   async removeBasketItem(basketItemId: string) {
-    this.showSpinner(SpinnerType.BallAtom);
+    this.showSpinner(SpinnerType.BallAtom);   
     await this.basketService.remove(basketItemId);
 
     var a = $("." + basketItemId)
     $("." + basketItemId).fadeOut(500, () => this.hideSpinner(SpinnerType.BallAtom));
   }
-  totalPrice(){
-    this.basketItems.forEach(basketItem => {
-      this.totalprice+=basketItem.quantity*basketItem.price;
-    });
-    return this.totalprice;
-  }
+  
+  
 }

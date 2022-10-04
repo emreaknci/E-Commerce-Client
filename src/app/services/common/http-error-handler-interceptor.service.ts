@@ -26,7 +26,6 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // console.log('interceptor deverede');
     return next.handle(req).pipe(
       catchError((error) => {
         switch (error.status) {
@@ -40,7 +39,7 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
                     if (url == '/products')
                       this.toastrService.info(
                         'Sepete ürün eklemek için oturum açmanız gerekiyor.',
-                        'Giriş Yapmalsınız.'
+                        'Giriş Yapmalısınız.'
                       );
                   } else {
                     this.toastrService.warning(

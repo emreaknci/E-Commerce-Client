@@ -36,25 +36,28 @@ export class UserAuthService {
     callBackFunction();
   }
 
-  async refreshTokenLogin(refreshToken: string, callBackFunction?: (state:any) => void):Promise<any> {
+  async refreshTokenLogin(
+    refreshToken: string,
+    callBackFunction?: (state: any) => void
+  ): Promise<any> {
     const observable: Observable<any | TokenResponse> =
       this.httpClientService.post(
         { action: 'refreshTokenLogin', controller: 'auth' },
         { refreshToken: refreshToken }
       );
-      try {
-        const response:TokenResponse=await firstValueFrom(observable) as TokenResponse;
+    try {
+      const response: TokenResponse = (await firstValueFrom(
+        observable
+      )) as TokenResponse;
 
-        if (response) {
-          localStorage.setItem('accessToken', response.token.accessToken);
-          localStorage.setItem('refreshToken', response.token.refreshToken);
-        }
-        callBackFunction(response ? true : false);
-      } catch (error) {
-        callBackFunction(false);
+      if (response) {
+        localStorage.setItem('accessToken', response.token.accessToken);
+        localStorage.setItem('refreshToken', response.token.refreshToken);
       }
-     
- 
+      callBackFunction(response ? true : false);
+    } catch (error) {
+      callBackFunction(false);
+    }
   }
 
   async googleLogin(
@@ -109,5 +112,29 @@ export class UserAuthService {
       this.toastrService.error('Giriş başarısız');
     }
     callBackFunction();
+  }
+
+  async passwordReset(email: string, callBackFunction?: () => void) {
+    const observable: Observable<any> = this.httpClientService.post({
+      controller: "auth",
+      action: "password-reset"
+    }, { email: email });
+
+    await firstValueFrom(observable);
+    callBackFunction();
+  }
+
+  async verifyResetToken(resetToken: string, userId: string, callBackFunction?: () => void): Promise<boolean> {
+    const observable: Observable<any> = this.httpClientService.post({
+      controller: "auth",
+      action: "verify-reset-token"
+    }, {
+      resetToken: resetToken,
+      userId: userId
+    });
+
+    const state: boolean = await firstValueFrom(observable);
+    callBackFunction();
+    return state;
   }
 }

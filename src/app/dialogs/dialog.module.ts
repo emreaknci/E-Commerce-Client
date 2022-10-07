@@ -10,6 +10,9 @@ import { SelectProductImageDialogComponent } from './select-product-image-dialog
 import { FormsModule } from '@angular/forms';
 import { BasketItemRemoveDialogComponent } from './basket-item-remove-dialog/basket-item-remove-dialog.component';
 import { ShoppingCompleteDialogComponent } from './shopping-complete-dialog/shopping-complete-dialog.component';
+import { OrderDetailDialogComponent } from './order-detail-dialog/order-detail-dialog.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -17,14 +20,18 @@ import { ShoppingCompleteDialogComponent } from './shopping-complete-dialog/shop
     FileUploadDialogComponent,
     SelectProductImageDialogComponent,
     BasketItemRemoveDialogComponent,
-    ShoppingCompleteDialogComponent
-    
+    ShoppingCompleteDialogComponent,
+    OrderDetailDialogComponent,
   ],
   imports: [
     CommonModule,
-    MatDialogModule, MatButtonModule, MatCardModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCardModule,
     FileUploadModule,
-    FormsModule
-  ]
+    FormsModule,
+    MatTableModule,
+    MatToolbarModule,
+  ],
 })
-export class DialogModule { }
+export class DialogModule {}

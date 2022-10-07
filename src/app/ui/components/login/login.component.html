@@ -1,64 +1,70 @@
 <main class="container mx-auto">
-    <div>
-      <div class="row">
-        <div class="col-lg-4 offset-lg-4 col-sm-10 offset-sm-1">
-          <form
-            [formGroup]="loginFormGroup"
-            (ngSubmit)="onSubmit(loginFormGroup.value)"
-          >
-            <h1 class="h3 mb-3">Giriş Yap</h1>
-  
-            <div class="form-floating mb-3">
-              <input
-                [ngClass]="{
-                  'is-invalid': submitted && component.userNameOrEmail.errors
-                }"
-                type="text"
-                formControlName="userNameOrEmail"
-                class="form-control"
-                id="userNameOrEmail"
-                placeholder="Kullanıcı Adı veya Mail"
-                required
-              />
-              <label for="floatingInput">Kullanıcı Adı veya Mail</label>
-              <small
-                class="form-text text-muted invalid-feedback"
-                *ngIf="submitted && component.userNameOrEmail.errors?.required"
-                >Bu alanı boş geçemezsiniz.</small
-              >
-            </div>
-        
-            <div class="form-floating mb-3">
-              <input
-                [ngClass]="{
-                  'is-invalid': submitted && component.password.errors
-                }"
-                type="password"
-                class="form-control"
-                id="password"
-                placeholder="Password"
-                formControlName="password"
-                required
-              />
-              <label for="floatingPassword">Şifre</label>
-              <small
-                class="form-text text-muted invalid-feedback"
-                *ngIf="submitted && component.password.errors?.required"
-                >Bu alanı boş geçemezsiniz.</small
-              >
-            </div>
-          
-            <button class="w-100 btn btn-lg btn-primary mb-3">Giriş Yap</button>
+  <div>
+    <div class="row">
+      <div class="col-lg-4 offset-lg-4 col-sm-10 offset-sm-1">
+        <form
+          [formGroup]="loginFormGroup"
+          (ngSubmit)="onSubmit(loginFormGroup.value)"
+        >
+          <h1 class="h3 mb-3">Giriş Yap</h1>
+
+          <div class="form-floating mb-3">
+            <input
+              [ngClass]="{
+                'is-invalid': submitted && component.userNameOrEmail.errors
+              }"
+              type="text"
+              formControlName="userNameOrEmail"
+              class="form-control"
+              id="userNameOrEmail"
+              placeholder="Kullanıcı Adı veya Mail"
+              required
+            />
+            <label for="floatingInput">Kullanıcı Adı veya Mail</label>
+            <small
+              class="form-text text-muted invalid-feedback"
+              *ngIf="submitted && component.userNameOrEmail.errors?.required"
+              >Bu alanı boş geçemezsiniz.</small
+            >
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              [ngClass]="{
+                'is-invalid': submitted && component.password.errors
+              }"
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Password"
+              formControlName="password"
+              required
+            />
+            <label for="floatingPassword">Şifre</label>
+            <small
+              class="form-text text-muted invalid-feedback"
+              *ngIf="submitted && component.password.errors?.required"
+              >Bu alanı boş geçemezsiniz.</small
+            >
+          </div>
+
+          <button class="w-100 btn btn-lg btn-primary mb-3">Giriş Yap</button>
           <div class="offset-lg-4 offset-sm-5">
-            <asl-google-signin-button class="btn border-0"></asl-google-signin-button>
-            <a class="btn  btn-primary" style="width:2rem ; height: 2rem;" (click)="facebookLogin()">
-              <i class="bi bi-facebook"></i>
-             </a>
-          </div>            
+            <asl-google-signin-button
+              class="btn border-0"
+            ></asl-google-signin-button>
+            <a
+              class="btn btn-primary"
+              style="width: 32px; height: 32px"
+              (click)="facebookLogin()"
+            >
+              <i class="bi bi-facebook d-flex justify-content-center"></i>
+            </a>
+         
+          </div>
           <!-- <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p> -->
-          </form>
-        </div>
+        </form>
       </div>
     </div>
-  </main>
-  
+  </div>
+</main>

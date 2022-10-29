@@ -12,12 +12,17 @@
 
     <ng-container matColumnDef="totalPrice">
       <th mat-header-cell *matHeaderCellDef>Total Price</th>
-      <td mat-cell *matCellDef="let element">{{ element.totalPrice  | currency: "₺" }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.totalPrice | currency: "₺" }}</td>
     </ng-container>
 
     <ng-container matColumnDef="createdDate">
       <th mat-header-cell *matHeaderCellDef>Created Date</th>
       <td mat-cell *matCellDef="let element">{{ element.createdDate }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="completed">
+      <th mat-header-cell *matHeaderCellDef >Completion Status</th>
+      <td mat-cell *matCellDef="let element"> <i *ngIf="element.completed" class="bi bi-check-circle"></i> </td>
     </ng-container>
 
     <ng-container matColumnDef="viewDetail">
@@ -30,15 +35,8 @@
 
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef>Delete</th>
-      <td
-        [id]="element.id"
-        controller="products"
-        mat-cell
-        *matCellDef="let element"
-        appDelete
-        (callback)="5"
-      >
-      <i class="bi bi-trash-fill"> Delete </i>
+      <td [id]="element.id" controller="products" mat-cell *matCellDef="let element" appDelete (callback)="5">
+        <i class="bi bi-trash-fill"> Delete </i>
         {{ element.delete }}
       </td>
     </ng-container>
@@ -48,11 +46,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <mat-paginator
-    (page)="pageChanged()"
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-    aria-label="Select page of periodic elements"
-  >
+  <mat-paginator (page)="pageChanged()" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
   </mat-paginator>
 </div>

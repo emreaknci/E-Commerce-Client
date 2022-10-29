@@ -5,4 +5,5 @@ export interface OrderList {
     totalPrice: number;
     createdDate: Date;
     id:string;
+    completed: boolean;
 }

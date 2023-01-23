@@ -55,7 +55,7 @@ export class DeleteDirective {
           $(td.parentElement).fadeOut(500, () => {
             this.callback.emit();
           });
-          this.alertifyService.success('Silme işlemi gerçekleştirildi.');
+          this.alertifyService.success(`${this.controller == 'roles' ? 'Rol' : 'Ürün'} başarıyla silinmiştir.`);
         },
         (responseError) => {
           this.cancelCallBack();

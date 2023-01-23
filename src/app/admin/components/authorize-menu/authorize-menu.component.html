@@ -1,0 +1,30 @@
+<div class="offset-2 col-8">
+<h1 class="text-center fw-bold fs-2">Roller</h1>
+  <div class="accordion accordion-flush" id="accordionExample">
+    <div class="accordion-item" *ngFor="let endpoint of endpoints, let i=index">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+ i"
+          aria-expanded="true">
+          {{endpoint.name}}
+        </button>
+      </h2>
+      <div id="collapse{{i}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row">
+
+            <ul class="list-group">
+              <li *ngFor="let action of endpoint.actions" class="list-group-item border-0">
+                <button class="fw-bold border-0 bg-transparent" (click)="assignRole(action.code, endpoint.name)">Rol
+                  Ata</button>
+                {{action.definition}}
+                
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

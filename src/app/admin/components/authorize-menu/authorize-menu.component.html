@@ -14,7 +14,7 @@
 
             <ul class="list-group">
               <li *ngFor="let action of endpoint.actions" class="list-group-item border-0">
-                <button class="fw-bold border-0 bg-transparent" (click)="assignRole(action.code, endpoint.name)">Rol
+                <button class="fw-bold border-0 bg-transparent" (click)="assignRole(action.code, endpoint.name,endpoint.name)">Rol
                   Ata</button>
                 {{action.definition}}
                 

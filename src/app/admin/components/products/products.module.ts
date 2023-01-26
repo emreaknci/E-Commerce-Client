@@ -13,9 +13,10 @@ import { MatTableModule } from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
 import { FileUploadModule } from 'src/app/services/common/file-upload/file-upload.module';
+import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive.module';
 
 @NgModule({
-  declarations: [ProductsComponent, CreateComponent, ListComponent,DeleteDirective],
+  declarations: [ProductsComponent, CreateComponent, ListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([{ path: '', component: ProductsComponent }]),
@@ -26,7 +27,8 @@ import { FileUploadModule } from 'src/app/services/common/file-upload/file-uploa
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    FileUploadModule
+    FileUploadModule,
+    DeleteDirectiveModule
   ],
 })
 export class ProductsModule {}

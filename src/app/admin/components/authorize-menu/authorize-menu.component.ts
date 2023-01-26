@@ -19,14 +19,15 @@ export class AuthorizeMenuComponent extends BaseComponent implements OnInit {
 
   async ngOnInit() {
     this.endpoints = await this.applicationService.getAuthorizeDefinitionEndpoints();
+    console.log(this.endpoints)
   }
 
   endpoints: Menu[] = [];
 
-  assignRole(code: string, name: string) {
+  assignRole(code: string, name: string, menuName: string) {
     this.dialogService.openDialog({
       componentType: AuthorizeMenuDialogComponent,
-      data: { code: code, name: name },
+      data: { code: code, name: name, menuName: menuName },
       options: {
         width: "750px"
       },

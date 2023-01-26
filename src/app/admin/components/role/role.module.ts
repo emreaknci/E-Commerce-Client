@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CreateComponent } from './create/create.component';
 import { ListComponent } from './list/list.component';
 import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
+import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive.module';
 
 
 
@@ -18,8 +19,7 @@ import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
   declarations: [
     RoleComponent,
     CreateComponent,
-    ListComponent,
-    DeleteDirective
+    ListComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +32,7 @@ import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
     MatButtonModule, 
     MatTableModule, 
     MatPaginatorModule,
+    DeleteDirectiveModule
   ]
 })
 export class RoleModule { }

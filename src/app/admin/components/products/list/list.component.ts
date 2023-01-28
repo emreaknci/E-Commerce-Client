@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { ProductList } from 'src/app/contracts/productList';
+import { QrcodeDialogComponent } from 'src/app/dialogs/qrcode-dialog/qrcode-dialog.component';
 import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
@@ -30,6 +31,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     'createdDate',
     'updatedDate',
     'images',
+    'qrcode',
     'edit',
     'delete',
   ];
@@ -64,6 +66,14 @@ export class ListComponent extends BaseComponent implements OnInit {
       componentType:SelectProductImageDialogComponent,
       data:id,
       options:{width:"50%"}
+    })
+  }
+  
+  showQRCode(productId: string) {
+    this.dialogService.openDialog({
+      componentType: QrcodeDialogComponent,
+      data: productId,
+      afterClosed: () => { }
     })
   }
 }

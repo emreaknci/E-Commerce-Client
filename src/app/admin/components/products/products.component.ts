@@ -4,39 +4,37 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ProductAdd } from 'src/app/contracts/productAdd';
 import { ListComponent } from './list/list.component';
+import { DialogService } from 'src/app/services/common/dialog.service';
+import { QrcodeReadingDialogComponent } from 'src/app/dialogs/qrcode-reading-dialog/qrcode-reading-dialog.component';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent extends BaseComponent implements OnInit {
-  constructor(spinnerService: NgxSpinnerService,private httpClientService:HttpClientService) {
+  constructor(spinnerService: NgxSpinnerService,
+    private httpClientService:HttpClientService,
+    private dialogService: DialogService) {
     super(spinnerService);
   }
 
   ngOnInit(): void {
     this.showSpinner(SpinnerType.Pacman);
-    // this.httpClientService.get<ProductAdd[]>({controller:"products"}).subscribe();
-    // // this.httpClientService.post({controller:"products"},{
-    // //   name:"kalem",
-    // //   unitsInStock:100,
-    // //   price:5
-    // // }).subscribe(data=>console.log(data))
-
-    // // this.httpClientService.put({controller:"products"},{
-    // //   id:"feb34215-3339-456c-b250-d23d9b1ceafa",
-    // //   name:"kalem15",
-    // //   unitInStock:15,
-    // //   price:4
-    // // }).subscribe();
-    
-    // this.httpClientService.delete({
-    //   controller:"products"
-    // },"feb34215-3339-456c-b250-d23d9b1ceafa").subscribe()
   }
 
   @ViewChild(ListComponent) listComponents:ListComponent;
   createdProduct(createdProduct:ProductAdd){
     this.listComponents.getProducts();
+  }
+
+  showProductQrCodeReading() {
+    this.dialogService.openDialog({
+      componentType: QrcodeReadingDialogComponent,
+      data: null,
+      options: {
+        width: "1000px"
+      },
+      afterClosed: () => { }
+    });
   }
 }

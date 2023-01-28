@@ -21,7 +21,7 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
     private userAuthService: UserAuthService,
     private router: Router,
     private spinnerService: NgxSpinnerService
-  ) {}
+  ) { }
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -49,7 +49,12 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
                   }
                 }
               )
-              .then((data) => {});
+              .then((data) => {
+                this.toastrService.warning(
+                  'Bu işlemi yapmak için gerekli yetkiye sahip değilsiniz.',
+                  'Yetkisiz İşlem!'
+                );
+              });
             break;
           case HttpStatusCode.InternalServerError:
             this.toastrService.warning(

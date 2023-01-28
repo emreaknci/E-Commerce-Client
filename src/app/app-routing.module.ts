@@ -44,6 +44,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: "users",
+        loadChildren: () =>
+          import("./admin/components/user/user.module").then(
+            module => module.UserModule
+          ),
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'orders',
         loadChildren: () =>
           import('./admin/components/orders/orders.module').then(
@@ -111,4 +119,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
